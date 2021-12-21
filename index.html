@@ -33,21 +33,28 @@
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
-    const mesh = new THREE.Mesh(geometry, material);
+    const meshBox = new THREE.Mesh(geometry, material);
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
     const light = new THREE.DirectionalLight(0xffffff, 2, 119);
     light.position.set(1, 0.4, 0.1);
     scene.add(ambientLight);
     scene.add(light);
-    scene.add(mesh);
+    scene.add(meshBox);
 
     camera.position.set(4, 4, 4);
-    camera.lookAt(0, 0, 0);
+    camera.lookAt(meshBox.position);
+
+    const canvas = renderer.domElement
+    canvas.addEventListener("mousemove", onMouseMove)
+
+    function onMouseMove(event) {
+      meshBox.rotation.y += event.movementX * 0.005
+    }
 
     function animate() {
       requestAnimationFrame(animate);
-      // mesh.rotation.x += 0.01;
-      // mesh.rotation.y += 0.01;
+      // meshBox.rotation.x += 0.01;
+      // meshBox.rotation.y += 0.01;
       renderer.render(scene, camera);
     }
     animate();
