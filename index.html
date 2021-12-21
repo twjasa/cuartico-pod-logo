@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>My first three.js app</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="js/three.js"></script>
+  <script>
+    // Our Javascript will go here.
+    const scene = new THREE.Scene();
+    const width = 10;
+    const height = width * (window.innerHeight / window.innerWidth)
+    const camera = new THREE.OrthographicCamera(
+      width / -2,
+      width / 2,
+      height / 2,
+      height / -2,
+      1,
+      100
+    );
+
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
+    const mesh = new THREE.Mesh(geometry, material);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+    const light = new THREE.DirectionalLight(0xffffff, 2, 119);
+    light.position.set(1, 0.4, 0.1);
+    scene.add(ambientLight);
+    scene.add(light);
+    scene.add(mesh);
+
+    camera.position.set(4, 4, 4);
+    camera.lookAt(0, 0, 0);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      // mesh.rotation.x += 0.01;
+      // mesh.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+  </script>
+</body>
+
+</html>
