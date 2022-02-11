@@ -22,7 +22,7 @@
       lightBlue: `#00bdfd`
     }
     const scene = new THREE.Scene()
-    const width = 5
+    const width = 4
     const height = width * (window.innerHeight / window.innerWidth)
     const camera = new THREE.OrthographicCamera(
       width / -2,
@@ -37,7 +37,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight)
     document.body.appendChild(renderer.domElement)
 
-    const boxGeometry = new THREE.BoxGeometry(1, 1, 1)
+    const boxGeometry = new THREE.BoxGeometry(1, 1, 1.28)
     const material = [
       new THREE.MeshBasicMaterial({ // front right side
         color: colors.orange,
@@ -74,13 +74,13 @@
     //TAPA
     const prismGeometry = new THREE.BufferGeometry()
     const prismVertices = new Float32Array([
-      -0.5, 0.5, 0.5, // 1
-      0.5, 0.5, 0.5,  // 2
-      0, 0.8, 0.5, // 3
+      -0.5, 0.5, 0.64, // 1
+      0.5, 0.5, 0.64,  // 2
+      0, 0.8, 0.64, // 3
 
-      -0.5, 0.5, -0.5, // 4
-      0.5, 0.5, -0.5, // 5
-      0, 0.8, -0.5, // 6
+      -0.5, 0.5, -0.64, // 4
+      0.5, 0.5, -0.64, // 5
+      0, 0.8, -0.64, // 6
     ])
     const indices = [
       0, 1, 2, // Top
@@ -125,21 +125,59 @@
         side: THREE.DoubleSide
       })
     ]
-    const prismMesh = new THREE.Mesh(prismGeometry, prismMaterial) //
+    const meshPrism = new THREE.Mesh(prismGeometry, prismMaterial) //
     ///////////
     //LID
-    const lidGeometry = new THREE.PlaneGeometry(1, 0.3, 1, 2)
+    const lidGeometry = new THREE.PlaneGeometry(1.28, 0.3, 1, 2)
     const lidMaterial = new THREE.MeshBasicMaterial({ color: colors.lightBlue, side: THREE.DoubleSide })
-    const lid = new THREE.Mesh(lidGeometry, lidMaterial)
-    lid.position.set(0, 0.95, 0)
-    lid.rotation.set(0, (90 / 180) * Math.PI, 0)
+    const meshLid = new THREE.Mesh(lidGeometry, lidMaterial)
+    meshLid.position.set(0, 0.95, 0)
+    const rotate90 = (90 / 180) * Math.PI
+    meshLid.rotation.set(0, rotate90, 0)
     //////
+    /// EL text
+    const letterMeshProperties = { color: colors.darkBlue, side: THREE.DoubleSide }
+    const columnGeo = new THREE.PlaneGeometry(0.04, 0.8, 1)
+    const columnMaterial = new THREE.MeshBasicMaterial(letterMeshProperties)
+    const eColumnMesh = new THREE.Mesh(columnGeo, columnMaterial)
+    eColumnMesh.position.set(0.501, 0, 0.52)
+    eColumnMesh.rotation.set(0, rotate90, 0)
+    const palitosGeo = new THREE.PlaneGeometry(0.08, 0.04, 1)
+    const palitosMaterial = new THREE.MeshBasicMaterial(letterMeshProperties)
+    const ePalito1 = new THREE.Mesh(palitosGeo, palitosMaterial)
+    const ePalito2 = new THREE.Mesh(palitosGeo, palitosMaterial)
+    const ePalito3 = new THREE.Mesh(palitosGeo, palitosMaterial)
+    ePalito1.rotation.set(0, rotate90, 0)
+    ePalito2.rotation.set(0, rotate90, 0)
+    ePalito3.rotation.set(0, rotate90, 0)
+    ePalito1.position.set(0.501, 0.38, 0.47)
+    ePalito2.position.set(0.501, 0, 0.47)
+    ePalito3.position.set(0.501, -0.38, 0.47)
+    const lColumnMesh = new THREE.Mesh(columnGeo, columnMaterial)
+    lColumnMesh.position.set(0.501, 0, 0.378)
+    lColumnMesh.rotation.set(0, rotate90, 0)
+    const lPalito = new THREE.Mesh(palitosGeo, palitosMaterial)
+    lPalito.rotation.set(0, rotate90, 0)
+    lPalito.position.set(0.501, -0.38, 0.328)
 
-    scene.add(lid)
-    scene.add(prismMesh)
+    const elWord = new THREE.Group()
+    elWord.add(eColumnMesh)
+    elWord.add(ePalito1)
+    elWord.add(ePalito2)
+    elWord.add(ePalito3)
+    elWord.add(lColumnMesh)
+    elWord.add(lPalito)
+    //
+    ///GROUP
+    const cuartico = new THREE.Group()
+    cuartico.add(meshLid)
+    cuartico.add(elWord)
+    cuartico.add(meshBox)
+    cuartico.add(meshPrism)
+    ////
     scene.add(ambientLight)
     scene.add(light)
-    scene.add(meshBox)
+    scene.add(cuartico)
 
     camera.position.set(4, 4, 4)
     camera.lookAt(meshBox.position)
@@ -148,16 +186,11 @@
     canvas.addEventListener("mousemove", onMouseMove)
 
     function onMouseMove(event) {
-      meshBox.rotation.y += event.movementX * 0.006
-      prismMesh.rotation.y += event.movementX * 0.006
-      lid.rotation.y += event.movementX * 0.006
-      // prismMesh.rotation.x += event.movementY * 0.006
+      cuartico.rotation.y += event.movementX * 0.006
     }
 
     function animate() {
       requestAnimationFrame(animate)
-      // meshBox.rotation.x += 0.01;
-      // meshBox.rotation.y += 0.01;
       renderer.render(scene, camera)
     }
     animate();
