@@ -161,23 +161,29 @@
     lPalito.position.set(0.501, -0.38, 0.328)
 
     const elWord = new THREE.Group()
-    elWord.add(eColumnMesh)
-    elWord.add(ePalito1)
-    elWord.add(ePalito2)
-    elWord.add(ePalito3)
-    elWord.add(lColumnMesh)
-    elWord.add(lPalito)
+    elWord.add(
+      eColumnMesh,
+      ePalito1,
+      ePalito2,
+      ePalito3,
+      lColumnMesh,
+      lPalito
+    )
     //
     ///GROUP
     const cuartico = new THREE.Group()
-    cuartico.add(meshLid)
-    cuartico.add(elWord)
-    cuartico.add(meshBox)
-    cuartico.add(meshPrism)
+    cuartico.add(
+      meshLid,
+      elWord,
+      meshBox,
+      meshPrism
+    )
     ////
-    scene.add(ambientLight)
-    scene.add(light)
-    scene.add(cuartico)
+    scene.add(
+      cuartico,
+      ambientLight,
+      light
+    )
 
     camera.position.set(4, 4, 4)
     camera.lookAt(meshBox.position)
