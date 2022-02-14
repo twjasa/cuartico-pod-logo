@@ -6,5 +6,4 @@ import { cuartico } from "./models/cuartico";
 const app = document.querySelector("#app");
 let { scene, camera } = setupScene(app);
 scene.add(cuartico);
-console.log(camera.position);
 camera.lookAt(cuartico);

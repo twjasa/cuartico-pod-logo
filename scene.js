@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { addSVGtoScene } from "./svg";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import elCuarticoSvg from "./assets/elcuartico.svg?url";
 
 const setupScene = (container) => {
   let camera, scene, renderer;
@@ -42,16 +43,14 @@ const setupScene = (container) => {
   // controls.addEventListener("change", () => { // to debug camera
   //   console.log(camera.position);
   // });
-  console.log(controls);
   container.append(renderer.domElement);
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    console.log(camera.position);
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
   animate();
-  addSVGtoScene(scene, "./assets/elcuartico.svg");
+  addSVGtoScene(scene, elCuarticoSvg);
   return { scene, camera };
 };
 
