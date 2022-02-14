@@ -1,201 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>El Cuartico Podcast</title>
-  <style>
-    body {
-      margin: 0;
-    }
-  </style>
+
 </head>
 
 <body>
-  <script src="js/three.js"></script>
-  <script>
-    // Our Javascript will go here.
-    const colors = {
-      orange: `#ff6b43`,
-      beige: `#feeed5`,
-      darkBlue: `#002329`,
-      lightBlue: `#00bdfd`
-    }
-    const scene = new THREE.Scene()
-    const width = 4
-    const height = width * (window.innerHeight / window.innerWidth)
-    const camera = new THREE.OrthographicCamera(
-      width / -2,
-      width / 2,
-      height / 2,
-      height / -2,
-      1,
-      100
-    )
+  <div id="app"></div>
+  <script type="module" src="/main.js"></script>
+</body>
 
-    const renderer = new THREE.WebGLRenderer()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    document.body.appendChild(renderer.domElement)
+</html>
+<!DOCTYPE html>
+<html lang="en">
 
-    const boxGeometry = new THREE.BoxGeometry(1, 1, 1.28)
-    const material = [
-      new THREE.MeshBasicMaterial({ // front right side
-        color: colors.orange,
-        side: THREE.DoubleSide
-      }),
-      new THREE.MeshBasicMaterial({ // back left side
-        color: colors.lightBlue,
-        side: THREE.DoubleSide
-      }),
-      new THREE.MeshBasicMaterial({ // top
-        color: colors.orange,
-        transparent: true, opacity: 0,
-        side: THREE.DoubleSide
-      }),
-      new THREE.MeshBasicMaterial({ // bottom
-        color: colors.darkBlue,
-        side: THREE.DoubleSide
-      }),
-      new THREE.MeshBasicMaterial({ // front left side 
-        color: colors.orange,
-        transparent: true, opacity: 0,
-        side: THREE.DoubleSide
-      }),
-      new THREE.MeshBasicMaterial({ // back right side
-        color: colors.lightBlue,
-        transparent: true, opacity: 0,
-        side: THREE.DoubleSide
-      }),
-    ]
-    const meshBox = new THREE.Mesh(boxGeometry, material)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.1)
-    const light = new THREE.DirectionalLight(0xffffff, 2, 119)
-    light.position.set(1, 0.4, 0.1)
-    //TAPA
-    const prismGeometry = new THREE.BufferGeometry()
-    const prismVertices = new Float32Array([
-      -0.5, 0.5, 0.64, // 1
-      0.5, 0.5, 0.64,  // 2
-      0, 0.8, 0.64, // 3
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three.js SVG extruder</title>
+</head>
 
-      -0.5, 0.5, -0.64, // 4
-      0.5, 0.5, -0.64, // 5
-      0, 0.8, -0.64, // 6
-    ])
-    const indices = [
-      0, 1, 2, // Top
-      5, 4, 3, // Bottom
-      3, 1, 0, // Back
-      1, 3, 4, // Back
-      0, 2, 3, // Left
-      5, 3, 2, // Left
-      4, 2, 1, // Right
-      2, 4, 5, // Right
-    ]
-    prismGeometry.setAttribute('position', new THREE.BufferAttribute(prismVertices, 3))
-    prismGeometry.setIndex(indices)
-
-    prismGeometry.computeVertexNormals()
-
-    prismGeometry.clearGroups()
-    prismGeometry.addGroup(1, 3, 0)
-    prismGeometry.addGroup(3, 6, 1)
-    prismGeometry.addGroup(6, 12, 2)
-    prismGeometry.addGroup(12, 18, 3)
-    prismGeometry.addGroup(18, 24, 4)
-    const prismMaterial = [
-      new THREE.MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-      }),
-      new THREE.MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-      }),
-      new THREE.MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-      }),
-      new THREE.MeshBasicMaterial({
-        color: colors.darkBlue,
-        side: THREE.DoubleSide
-      }),
-      new THREE.MeshBasicMaterial({
-        color: colors.beige,
-        side: THREE.DoubleSide
-      })
-    ]
-    const meshPrism = new THREE.Mesh(prismGeometry, prismMaterial) //
-    ///////////
-    //LID
-    const lidGeometry = new THREE.PlaneGeometry(1.28, 0.3, 1, 2)
-    const lidMaterial = new THREE.MeshBasicMaterial({ color: colors.lightBlue, side: THREE.DoubleSide })
-    const meshLid = new THREE.Mesh(lidGeometry, lidMaterial)
-    meshLid.position.set(0, 0.95, 0)
-    const rotate90 = (90 / 180) * Math.PI
-    meshLid.rotation.set(0, rotate90, 0)
-    //////
-    /// EL text
-    const letterMeshProperties = { color: colors.darkBlue, side: THREE.DoubleSide }
-    const columnGeo = new THREE.PlaneGeometry(0.04, 0.8, 1)
-    const columnMaterial = new THREE.MeshBasicMaterial(letterMeshProperties)
-    const eColumnMesh = new THREE.Mesh(columnGeo, columnMaterial)
-    eColumnMesh.position.set(0.501, 0, 0.52)
-    eColumnMesh.rotation.set(0, rotate90, 0)
-    const palitosGeo = new THREE.PlaneGeometry(0.08, 0.04, 1)
-    const palitosMaterial = new THREE.MeshBasicMaterial(letterMeshProperties)
-    const ePalito1 = new THREE.Mesh(palitosGeo, palitosMaterial)
-    const ePalito2 = new THREE.Mesh(palitosGeo, palitosMaterial)
-    const ePalito3 = new THREE.Mesh(palitosGeo, palitosMaterial)
-    ePalito1.rotation.set(0, rotate90, 0)
-    ePalito2.rotation.set(0, rotate90, 0)
-    ePalito3.rotation.set(0, rotate90, 0)
-    ePalito1.position.set(0.501, 0.38, 0.47)
-    ePalito2.position.set(0.501, 0, 0.47)
-    ePalito3.position.set(0.501, -0.38, 0.47)
-    const lColumnMesh = new THREE.Mesh(columnGeo, columnMaterial)
-    lColumnMesh.position.set(0.501, 0, 0.378)
-    lColumnMesh.rotation.set(0, rotate90, 0)
-    const lPalito = new THREE.Mesh(palitosGeo, palitosMaterial)
-    lPalito.rotation.set(0, rotate90, 0)
-    lPalito.position.set(0.501, -0.38, 0.328)
-
-    const elWord = new THREE.Group()
-    elWord.add(eColumnMesh)
-    elWord.add(ePalito1)
-    elWord.add(ePalito2)
-    elWord.add(ePalito3)
-    elWord.add(lColumnMesh)
-    elWord.add(lPalito)
-    //
-    ///GROUP
-    const cuartico = new THREE.Group()
-    cuartico.add(meshLid)
-    cuartico.add(elWord)
-    cuartico.add(meshBox)
-    cuartico.add(meshPrism)
-    ////
-    scene.add(ambientLight)
-    scene.add(light)
-    scene.add(cuartico)
-
-    camera.position.set(4, 4, 4)
-    camera.lookAt(meshBox.position)
-
-    const canvas = renderer.domElement
-    canvas.addEventListener("mousemove", onMouseMove)
-
-    function onMouseMove(event) {
-      cuartico.rotation.y += event.movementX * 0.006
-    }
-
-    function animate() {
-      requestAnimationFrame(animate)
-      renderer.render(scene, camera)
-    }
-    animate();
-
-  </script>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/main.js"></script>
 </body>
 
 </html>
