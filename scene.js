@@ -21,7 +21,11 @@ const setupScene = (container) => {
   pointLight.position.set(1, 1, 1);
 
   const controls = new OrbitControls(camera, renderer.domElement);
-  const maxAngle = Math.PI / 3.5;
+  // I found interesting that the correct way to position the camera to a isometric view is with an
+  // angle of arctan(2^-1/2) which is aprox 35.264 degree with X axis, I have been debugging this code to show
+  //correctly the cuartico logo, and found that this angle is related with the Y axis, thats why the angle is
+  // 54.736 (90 - 35.264)
+  const maxAngle = THREE.MathUtils.degToRad(54.736);
   const animate = () => {
     renderer.render(scene, camera);
     controls.minPolarAngle = maxAngle;
@@ -32,11 +36,7 @@ const setupScene = (container) => {
 
   renderer.setSize(window.innerWidth, window.innerHeight);
   scene.add(ambientLight, pointLight);
-  camera.position.set(
-    215.09881178392288,
-    215.09881178392288,
-    162.7393950106054
-  );
+  camera.position.set(200, 200, 200);
   controls.rotateSpeed = 0.2;
   controls.enablePan = false;
   // controls.addEventListener("change", () => { // to debug camera

@@ -7,7 +7,7 @@ let {
 
 if (lockXAspect) {
   y = x;
-  z = x * 1.28;
+  z = x * 1.16;
 }
 const boxGeometry = new THREE.BoxGeometry(x, y, z);
 const material = [
@@ -49,5 +49,4 @@ const material = [
   }),
 ];
 const meshBox = new THREE.Mesh(boxGeometry, material);
-
 export { meshBox };

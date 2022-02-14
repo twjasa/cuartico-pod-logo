@@ -59,5 +59,5 @@ const prismMaterial = [
   }),
 ];
 const meshPrism = new THREE.Mesh(prismGeometry, prismMaterial);
-meshPrism.geometry.scale(200, 200, 200);
+meshPrism.geometry.scale(200, 200, 181.28);
 export { meshPrism };

@@ -24,13 +24,13 @@ const addSVGtoScene = (scene, svgRoute) => {
           const shape = shapes[j];
           const geometry = new THREE.ShapeGeometry(shape);
           const mesh = new THREE.Mesh(geometry, material);
-          mesh.geometry.scale(1, 0.97, 1);
+          mesh.geometry.scale(1, 0.98, 1);
           group.add(mesh);
         }
       }
       const rotate90 = (90 / 60) * Math.PI;
       group.rotation.set((90 / 10) * Math.PI, rotate90, 0);
-      group.position.set(101, 85, 110);
+      group.position.set(101, 85, 100);
       console.log(group.geometry);
       group.geometry;
       scene.add(group);
