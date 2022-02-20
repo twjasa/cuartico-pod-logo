@@ -1,9 +1,6 @@
-import * as THREE from "three";
 import { meshBox } from "./box";
 import { meshPrism } from "./prism";
 import { meshLid } from "./lid";
+import { triangleWall } from "./triangleWall";
 
-const cuartico = new THREE.Group();
-cuartico.add(meshBox, meshPrism, meshLid);
-
-export { cuartico };
+export { meshBox, meshPrism, meshLid, triangleWall };

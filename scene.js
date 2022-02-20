@@ -51,7 +51,7 @@ const setupScene = (container) => {
   });
   animate();
   addSVGtoScene(scene, elCuarticoSvg);
-  return { scene, camera };
+  return { scene, camera, controls };
 };
 
 export { setupScene };

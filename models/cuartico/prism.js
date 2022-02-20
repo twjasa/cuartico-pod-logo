@@ -46,14 +46,17 @@ const prismMaterial = [
     opacity: 0,
   }),
   new THREE.MeshBasicMaterial({
+    //base
     transparent: true,
     opacity: 0,
   }),
   new THREE.MeshBasicMaterial({
+    //left
     color: colors.darkBlue,
     side: THREE.DoubleSide,
   }),
   new THREE.MeshBasicMaterial({
+    //right
     color: colors.beige,
     side: THREE.DoubleSide,
   }),

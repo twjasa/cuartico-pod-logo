@@ -18,6 +18,8 @@ const material = [
   }),
   new THREE.MeshBasicMaterial({
     // back left side
+    transparent: false,
+    opacity: 100,
     color: colors.lightBlue,
     side: THREE.DoubleSide,
   }),
@@ -35,7 +37,7 @@ const material = [
   }),
   new THREE.MeshBasicMaterial({
     // front left side
-    color: colors.orange,
+    color: colors.beige,
     transparent: true,
     opacity: 0,
     side: THREE.DoubleSide,

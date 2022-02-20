@@ -5,6 +5,7 @@ const colors = {
   lightBlue: `#00bdfd`,
 };
 
+//TODO: this is outdated
 const sizes = {
   box: {
     x: 200,
