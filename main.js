@@ -1,4 +1,5 @@
 import * as THREE from "three";
+
 import "./style.css";
 import { setupScene } from "./scene";
 import { meshBox, meshPrism, meshLid, triangleWall } from "./models/cuartico";
@@ -15,14 +16,16 @@ controls.addEventListener("change", () => {
     changeTransparency(meshBox, 4, true);
     changeTransparency(meshBox, 1, false);
     changeTransparency(meshPrism, 3, false);
-    changeTransparency(triangleWall, -1, true);
+    changeTransparency(triangleWall, 1, true);
+    changeTransparency(triangleWall, 2, true);
   }
   if (camera.position.z < 0 && meshBox.material[4].transparent) {
     //looking back
     changeTransparency(meshBox, 4, false);
     changeTransparency(meshBox, 1, true);
     changeTransparency(meshPrism, 3, true);
-    changeTransparency(triangleWall, -1, false);
+    changeTransparency(triangleWall, 1, false);
+    changeTransparency(triangleWall, 2, false);
   }
 });
 console.log(meshPrism.material);

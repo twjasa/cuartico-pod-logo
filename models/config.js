@@ -3,6 +3,7 @@ const colors = {
   beige: `#feeed5`,
   darkBlue: `#002329`,
   lightBlue: `#00bdfd`,
+  white: `#ffff`,
 };
 
 //TODO: this is outdated
